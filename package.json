@@ -35,6 +35,8 @@
     "node-sass-middleware": "^0.9.7",
     "nodemailer": "^2.3.0",
     "react": "15.1.0",
+    "react-autobind": "^1.0.6",
+    "react-bootstrap": "^0.32.1",
     "react-cookie": "^0.4.5",
     "react-dom": "15.1.0",
     "react-redux": "4.4.1",

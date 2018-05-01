@@ -1,8 +1,6 @@
 import React from 'react';
 import {InputGroup, Dropdown, Button, ButtonToolbar, FormGroup, FormControl, HelpBlock, ControlLabel} from 'react-bootstrap'
-import {StudentAPIWrapper} from "../var/apiWrapper";
 import {connect} from "react-redux";
-import {getStudent} from "../actions/edit";
 
 class Create extends React.Component {
 
@@ -21,14 +19,12 @@ class Create extends React.Component {
             },
             header: ""
         };
-        this.studentAPI = new StudentAPIWrapper();
     }
 
     handleInit(){
         if (this.isNew)
             return;
 
-        this.props.dispatch(getStudent(this.props.params.id));
     }
 
     componentDidMount(){
@@ -69,20 +65,20 @@ class Create extends React.Component {
                     <div className="form-group">
                         <label htmlFor="ddlGrade">Grade</label>
                         <select className="form-control" id="ddlGrade" value={this.props.student.grade} onChange={this.handleChange.bind(this)}>
-                            <option value="Pre-K">Pre-K</option>
-                            <option value="K">Kindergarten</option>
-                            <option value="1">First</option>
-                            <option value="2">Second</option>
-                            <option value="3">Third</option>
-                            <option value="4">Fourth</option>
-                            <option value="5">Fifth</option>
-                            <option value="6">Sixth</option>
-                            <option value="7">Seventh</option>
-                            <option value="8">Eighth</option>
-                            <option value="9">Ninth</option>
-                            <option value="10">Tenth</option>
-                            <option value="11">Eleventh</option>
-                            <option value="12">Twelfth</option>
+                            <option value="0">Pre-K</option>
+                            <option value="1">Kindergarten</option>
+                            <option value="2">First</option>
+                            <option value="3">Second</option>
+                            <option value="4">Third</option>
+                            <option value="5">Fourth</option>
+                            <option value="6">Fifth</option>
+                            <option value="7">Sixth</option>
+                            <option value="8">Seventh</option>
+                            <option value="9">Eighth</option>
+                            <option value="10">Ninth</option>
+                            <option value="11">Tenth</option>
+                            <option value="12">Eleventh</option>
+                            <option value="13">Twelfth</option>
                         </select>
                     </div>
                     <button type="submit" className="btn btn-success">Save</button>

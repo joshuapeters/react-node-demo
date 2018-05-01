@@ -1,37 +1,55 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import ReactTable from 'react-table'
-import {Button, ButtonToolbar} from 'react-bootstrap'
-import {StudentProvider} from "../../api/providers/StudentProvider"
+import {Button, ButtonToolbar, Modal} from 'react-bootstrap'
+import {fetchAllStudents, deleteStudents} from "../actions/students";
+import {getStudents} from "../selectors/students";
+import autoBind from 'react-autobind'
+import Messages from './Messages';
 
 class Students extends React.Component {
-    studentProvider;
-
     constructor() {
         super();
         this.state = {
-            data: [],
             selected: [],
             canEdit: false,
-            canDelete: false
+            canDelete: false,
+            show: false
         };
-        this.studentProvider = new StudentProvider();
+        autoBind(this);
+        this.handleHide.bind(this);
+        this.handleDelete.bind(this);
     }
 
     componentDidMount(){
-        // get all students and add to state
-        this.studentProvider.getAllStudents().then((Response) => Response.json()).
-        then((response) =>
-        {
-            console.log(response);
-            this.setState({
-                data: response
-            })
-        })
+        this.props.fetchAllStudents();
     }
 
-    deleteSelected(){
-        // todo: pop modal and on accept delete student
+    popDeleteConfirmation(){
+        this.setState({
+            show: true
+        });
+    }
+
+    deleteSelected(ids){
+        this.props.deleteStudents(ids);
+
+    }
+
+    handleHide(){
+        this.setState({
+            show: false
+        });
+    }
+
+    handleDelete(){
+        this.deleteSelected(this.state.selected);
+        this.setState({
+            selected: [],
+            canEdit: false,
+            canDelete: false,
+            show: false
+        });
     }
 
     render() {
@@ -47,16 +65,20 @@ class Students extends React.Component {
         }, {
             Header: 'Grade',
             accessor: 'grade'
+        }, {
+            Header: 'Age',
+            accessor: 'age'
         }];
 
         return (
-            <div className="container">
+            <div className="container-fluid">
+                <Messages messages={this.props.messages}/>
                 <ButtonToolbar>
-                    <Button bsStyle="danger" disabled={!this.state.canDelete} onClick={this.deleteSelected}>Delete</Button>
+                    <Button bsStyle="danger" disabled={!this.state.canDelete} onClick={this.popDeleteConfirmation}>Delete</Button>
                     <Button bsStyle="primary" disabled={!this.state.canEdit} href={"/create/" + this.state.selected[0]}>Edit</Button>
                 </ButtonToolbar>
                 <ReactTable className="-highlight"
-                            data = {this.state.data}
+                            data = {this.props.students}
                             columns = {columns}
                             sortable = "true"
                             multiSort = "true"
@@ -89,15 +111,46 @@ class Students extends React.Component {
                                 }
                             }}
                 />
+
+                <Modal
+                    show={this.state.show}
+                    onHide={this.handleHide}
+                    container={this}
+                    aria-labelledby="contained-modal-title"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title">
+                            Deleting Students!
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Warning!</p>
+                        <p>You are about to delete any students you have selected. Are you sure you want to continue?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button bsStyle="danger" onClick={this.handleDelete}>Delete</Button>
+                        <Button onClick={this.handleHide}>Cancel</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
+    const students = getStudents(state);
     return {
-        messages: state.messages
+        messages: state.messages,
+        students
     };
 };
 
-export default connect(mapStateToProps)(Students);
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchAllStudents: () => {dispatch(fetchAllStudents())},
+      deleteStudents: (ids) => {dispatch(deleteStudents(ids))}
+  }
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

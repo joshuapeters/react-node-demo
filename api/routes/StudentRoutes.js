@@ -4,7 +4,8 @@ module.exports = function(app){
 
     app.route('/api/students')
         .get(students.getAllStudents)
-        .post(students.createStudent);
+        .post(students.createStudent)
+        .delete(students.deleteStudentsById);
 
     app.route('/api/students/:id')
         .get(students.getStudentById)

@@ -123,7 +123,8 @@ apiRoutes(app);
 app.use(function(req, res) {
     var initialState = {
         auth: { token: req.cookies.token, user: req.user },
-        messages: {}
+        messages: {},
+        students: []
     };
 
     var store = configureStore(initialState);
