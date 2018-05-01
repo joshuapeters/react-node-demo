@@ -124,7 +124,15 @@ app.use(function(req, res) {
     var initialState = {
         auth: { token: req.cookies.token, user: req.user },
         messages: {},
-        students: []
+        students: [],
+        student: {
+            first_name: '',
+            last_name: '',
+            email: '',
+            age: '',
+            grade: ''
+        },
+        dirty: false
     };
 
     var store = configureStore(initialState);

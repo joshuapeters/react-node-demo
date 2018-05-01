@@ -11,6 +11,7 @@ import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
 import Students from "./components/Students";
 import Create from "./components/Create"
+import * as ActionTypes from './actions/ActionTypes'
 
 export default function getRoutes(store) {
     const ensureAuthenticated = (nextState, replace) => {
@@ -28,6 +29,12 @@ export default function getRoutes(store) {
             type: 'CLEAR_MESSAGES'
         });
     };
+    const clearAddOrUpdate = () => {
+        store.dispatch({
+            type: ActionTypes.CLEAR_ADD_OR_UPDATE
+        })
+    };
+
 
     return (
         <Route path="/" component={App}>

@@ -1,42 +1,47 @@
 import React from 'react';
-import {InputGroup, Dropdown, Button, ButtonToolbar, FormGroup, FormControl, HelpBlock, ControlLabel} from 'react-bootstrap'
+import autoBind from 'react-autobind'
+import {fetchStudent, createStudent, updateStudent, updateGlobalStudentState} from "../actions/create";
 import {connect} from "react-redux";
 
 class Create extends React.Component {
 
-    constructor(props){
-        super(props);
-        this.isNew = !!this.props.params.id;
-        this.loading = !this.isNew;
+    constructor(p){
+        super(p);
+        this.isNew = !!this.p.params.id;
         this.state = {
-            student: {
-                id: "",
-                first_name: "",
-                last_name: "",
-                email: "",
-                age: "",
-                grade: ""
-            },
-            header: ""
+            id: isNew ? '' : this.p.params.id,
         };
-    }
-
-    handleInit(){
-        if (this.isNew)
-            return;
-
+        autoBind(this);
+        this.handleChange.bind(this);
+        this.handleSave.bind(this);
     }
 
     componentDidMount(){
         this.handleInit();
     }
 
-    handleChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
+    handleInit(){
+        if (this.isNew)
+            return;
+        this.props.fetchStudent(this.state.id)
     }
 
-    handleSave(event) {
-        //todo: handle save
+    handleChange(event) {
+        this.props.updateGlobalStudentState(event.target.name, event.target.value)
+    }
+
+    handleSave() {
+        if (this.isNew)
+            this.props.createStudent(this.props.student);
+        else
+            this.props.updateStudent(this.state.id, this.props.student);
+    }
+
+    handleExit(){
+        if (!this.props.dirty)
+            return;
+
+        //todo: build popup to discard changes
     }
 
 
@@ -44,41 +49,41 @@ class Create extends React.Component {
 
         return(
             <div className="container">
-                <form onSubmit={this.handleSave.bind(this)}>
+                <form onSubmit={this.handleSave}>
                     <legend>{this.loading ? "Loading..." : this.props.header}</legend>
                     <div className="form-group">
                         <label htmlFor="txtFirstName">First Name</label>
-                        <input type="text" name="firstName" id="txtFirstName" placeholder="First Name" autoFocus className="form-control" value={this.props.student.first_name} onChange={this.handleChange.bind(this)}/>
+                        <input type="text" name="firstName" id="txtFirstName" placeholder="First Name" autoFocus className="form-control" value={this.props.student.first_name} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="txtLastName">Last Name</label>
-                        <input type="text" name="lastName" id="txtLastName" placeholder="Last Name" autoFocus className="form-control" value={this.props.student.last_name} onChange={this.handleChange.bind(this)}/>
+                        <input type="text" name="lastName" id="txtLastName" placeholder="Last Name" autoFocus className="form-control" value={this.props.student.last_name} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="txtEmail">First Name</label>
-                        <input type="email" name="email" id="txtEmail" placeholder="Email" autoFocus className="form-control" value={this.props.student.email} onChange={this.handleChange.bind(this)}/>
+                        <input type="email" name="email" id="txtEmail" placeholder="Email" autoFocus className="form-control" value={this.props.student.email} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="numAge">Age</label>
-                        <input type="number" name="age" id="numAge" placeholder="Age" className="form-control" value={this.props.student.age} onChange={this.handleChange.bind(this)}/>
+                        <input type="number" name="age" id="numAge" placeholder="Age" className="form-control" value={this.props.student.age} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="ddlGrade">Grade</label>
-                        <select className="form-control" id="ddlGrade" value={this.props.student.grade} onChange={this.handleChange.bind(this)}>
-                            <option value="0">Pre-K</option>
-                            <option value="1">Kindergarten</option>
-                            <option value="2">First</option>
-                            <option value="3">Second</option>
-                            <option value="4">Third</option>
-                            <option value="5">Fourth</option>
-                            <option value="6">Fifth</option>
-                            <option value="7">Sixth</option>
-                            <option value="8">Seventh</option>
-                            <option value="9">Eighth</option>
-                            <option value="10">Ninth</option>
-                            <option value="11">Tenth</option>
-                            <option value="12">Eleventh</option>
-                            <option value="13">Twelfth</option>
+                        <select className="form-control" id="ddlGrade" value={this.props.student.grade} onChange={this.handleChange}>
+                            <option value="Pre-K">Pre-K</option>
+                            <option value="K">Kindergarten</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                         </select>
                     </div>
                     <button type="submit" className="btn btn-success">Save</button>
@@ -91,14 +96,18 @@ class Create extends React.Component {
 const mapStateToProps = (state) => {
     return {
         student: state.student,
-        header: state.header
+        messages: state.messages
     };
 };
 
-const mapDispatchToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         //todo: map dispatch functions to properties
-    };
+        fetchStudent : (id) => dispatch(fetchStudent(id)),
+        updateStudent : (id, student) => dispatch(updateStudent(id, student)),
+        createStudent: (student) => dispatch(createStudent(student)),
+        updateGlobalStudentState: (propName, propVal) => dispatch(updateGlobalStudentState(propName, propVal))
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Create);

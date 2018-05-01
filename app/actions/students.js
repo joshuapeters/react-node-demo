@@ -1,4 +1,3 @@
-import {StudentProvider} from '../../api/providers/StudentProvider'
 import * as ActionTypes from './ActionTypes'
 
 export function fetchAllStudents(){
