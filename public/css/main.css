@@ -84,6 +84,13 @@
   * the application. Mixins will write out CSS attributes and allow
   * logic to be performed prior to rendering the attribute.
 */
+/* ==========================================================================
+   #SETTINGS - COLORS
+   ========================================================================== */
+/**
+  * This file contains all of the maps and variables associated with
+  * colors and elements for which colors are applied.
+*/
 /**
  * CONTENT
  *
@@ -92,6 +99,21 @@
  *
  */
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CRaleway:100,300,600,700,800");
+/* ==========================================================================
+   #TOOLS - MIXINS
+   ========================================================================== */
+/**
+  * This file contains all of the mixins that are used throughout
+  * the application. Mixins will write out CSS attributes and allow
+  * logic to be performed prior to rendering the attribute.
+*/
+/* ==========================================================================
+   #SETTINGS - COLORS
+   ========================================================================== */
+/**
+  * This file contains all of the maps and variables associated with
+  * colors and elements for which colors are applied.
+*/
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -5925,6 +5947,16 @@ footer {
   bottom: 0;
   background-color: #fff;
   border-top: 1px solid #e0e0e0; }
+
+/*** HEADER REQUIREMENT ***/
+header {
+  font-size: 2rem; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 5rem; }
+
+p {
+  color: #ff0000; }
 
 .login-container {
   max-width: 555px; }

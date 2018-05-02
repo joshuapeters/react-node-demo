@@ -30,7 +30,9 @@ $navbar-default-link-active-color: #262626;
 $panel-heading-padding: 20px 30px;
 $panel-body-padding: 30px;
 
+
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CRaleway:100,300,600,700,800");
+@import "../02-Tools/mixins";
 @import "vendor/bootstrap"; 
 
 // Scaffolding
@@ -53,6 +55,20 @@ footer {
   bottom: 0;
   background-color: #fff;
   border-top: 1px solid #e0e0e0;
+}
+
+/*** HEADER REQUIREMENT ***/
+header{
+  @include font-size-rem(2);
+}
+
+h1, h2, h3, h4, h5, h6{
+  @include font-size-rem(5);
+}
+
+/*** FONT COLOR REQUIREMENT ***/
+p{
+  @include set-font-color("orange");
 }
 
 .login-container {
