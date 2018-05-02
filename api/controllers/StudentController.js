@@ -10,8 +10,6 @@ exports.getAllStudents = async function(req, res){
         // need local provider for use within promise
         const sp = new StudentProvider();
         const filters = getFilters(req.query);
-
-        // split sortBy predicates by comma
         const sortBy = req.query.sortBy;
 
         const [results, itemCount] = await Promise.all([
@@ -34,7 +32,13 @@ exports.getAllStudents = async function(req, res){
 };
 
 function getFilters(body) {
-    var filterableProperties = ["first_name", "last_name", "email", "age", "grade"];
+    let filterableProperties = [
+        "first_name",
+        "last_name",
+        "email",
+        "age",
+        "grade"
+    ];
     return new FilterFactory(filterableProperties).buildFilterFromURLObject(body);
 }
 
