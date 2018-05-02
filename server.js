@@ -43,8 +43,7 @@ var app = express();
 
 var compiler = webpack(config);
 
-//mongoose.connect(process.env.MONGODB);
-mongoose.connect('mongodb://app-user:pffr4hceiwxR6Vmm@andculture-shard-00-00-ujwk6.mongodb.net:27017,andculture-shard-00-01-ujwk6.mongodb.net:27017,andculture-shard-00-02-ujwk6.mongodb.net:27017/test?ssl=true&replicaSet=andculture-shard-0&authSource=admin');
+mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function (e) {
     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
     console.log(e);
