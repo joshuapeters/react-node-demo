@@ -1,13 +1,21 @@
 import { StudentProvider } from '../providers/StudentProvider'
+import {FilterFactory} from "../providers/FilterFactory";
 import * as paginate from 'express-paginate';
+
 
 const studentProvider = new StudentProvider();
 
 exports.getAllStudents = async function(req, res){
     try{
+        // need local provider for use within promise
         const sp = new StudentProvider();
+        const filters = getFilters(req.query);
+
+        // split sortBy predicates by comma
+        const sortBy = req.query.sortBy;
+
         const [results, itemCount] = await Promise.all([
-            sp.getAllStudentsByPage(req.query.limit, req.query.page),
+            sp.getAllStudentsByPage(req.query.limit, req.query.page, filters, sortBy),
             sp.getStudentCount()
         ]);
 
@@ -24,6 +32,11 @@ exports.getAllStudents = async function(req, res){
         next(err);
     }
 };
+
+function getFilters(body) {
+    var filterableProperties = ["first_name", "last_name", "email", "age", "grade"];
+    return new FilterFactory(filterableProperties).buildFilterFromURLObject(body);
+}
 
 
 

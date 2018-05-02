@@ -30,8 +30,16 @@ This boilerplate is built using the following libraries:
 
 * Demonstrate unit tests on your API controllers and/or React components
 * Add paging to the student list
+    * specify ```page``` and ```limit``` values as query params
+    * max limit of 50 enforced by server
 * Add filtering to the student list
 * Allow sorting by column on the student list
+    * To sort, specify query params in url either by a single property's mongoose sort query:
+        * Asc: ```orderBy=age```
+        * Dec: ```orderBy=-age```
+    * You can also specify subproperties to the sortBy paramater to do more complex sorting:
+        * Sort by age ascending and grade descending: ```sortBy[age]=1&sortBy[grade]=-1```
+
 * Show form validation client side making student first and last name required
 * Utilize a JS abstraction such as TypeScript
 * Deploy to cloud host such as Heroku

@@ -14,12 +14,19 @@ export class StudentProvider{
         return this._model.find({});
     }
 
-    getAllStudentsByPage(limit, page){
-        return this._model.find({})
+    getAllStudentsByPage(limit, page, filter, orderBy){
+        let p = this._model
+            .find({})
+            .sort(orderBy)
             .limit(limit)
             .skip(limit * (page - 1))
             .lean()
-            .exec();
+            .exec()
+            .catch((err) => {
+                console.error(err);
+            });
+
+        return p;
     }
 
     getStudentCount(){

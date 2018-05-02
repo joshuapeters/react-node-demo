@@ -79,7 +79,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(paginate.middleware(10, 25));
+app.use(paginate.middleware(10, 50));
 
 app.use(function (req, res, next) {
     req.isAuthenticated = function () {
