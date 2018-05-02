@@ -16,7 +16,8 @@ export class StudentProvider{
 
     getAllStudentsByPage(limit, page){
         return this._model.find({})
-            .skip(limit * page)
+            .limit(limit)
+            .skip(limit * (page - 1))
             .lean()
             .exec();
     }

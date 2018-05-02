@@ -3,32 +3,15 @@ import * as paginate from 'express-paginate';
 
 const studentProvider = new StudentProvider();
 
-exports.getAllStudents = function(req, res){
-    if (req.query.limit && req.query.page){
-        this.getAllStudentsPaged(req, res);
-        return;
-    }
-
+exports.getAllStudents = async function(req, res){
     try{
-        studentProvider.getAllStudents().then(function(studentArray){
-            res.json(studentArray);
-        }).catch((ex) =>{
-            res.send(ex);
-        });
-    }
-    catch (err){
-        res.send(err);
-    }
-};
-
-exports.getAllStudentsPaged = function(req, res){
-    try{
-        const [results, itemCount] = Promise.all([
-            studentProvider.getAllStudentsByPage(req.query.limit, req.query.page),
-            studentProvider.getStudentCount()
+        const sp = new StudentProvider();
+        const [results, itemCount] = await Promise.all([
+            sp.getAllStudentsByPage(req.query.limit, req.query.page),
+            sp.getStudentCount()
         ]);
 
-        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const pageCount = req.query.limit <= 0 ? 1 : Math.ceil(itemCount / req.query.limit);
 
         res.json({
             page: req.query.page,
@@ -41,6 +24,8 @@ exports.getAllStudentsPaged = function(req, res){
         next(err);
     }
 };
+
+
 
 exports.createStudent = function(req, res){
     try{
