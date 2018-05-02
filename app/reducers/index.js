@@ -4,9 +4,11 @@ import auth from './auth';
 import create from './create'
 import students from './students'
 
+
+
 export default combineReducers({
-    messages,
     auth,
-    create,
-    students
+    messages,
+    students,
+    create
 });

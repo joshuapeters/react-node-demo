@@ -41,7 +41,7 @@ export default function getRoutes(store) {
             <IndexRoute component={Home} onLeave={clearMessages}/>
             <Route path="/students" component={Students} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
             <Route path="/create" component={Create} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
-            <Route path="/create/:id" component={Create} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
+            <Route path="/edit/:id" component={Create} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
             <Route path="/contact" component={Contact} onLeave={clearMessages}/>
             <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
             <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>

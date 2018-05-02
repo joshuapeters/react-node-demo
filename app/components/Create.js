@@ -5,71 +5,129 @@ import {connect} from "react-redux";
 
 class Create extends React.Component {
 
-    constructor(p){
-        super(p);
-        this.isNew = !!this.p.params.id;
+    constructor(props) {
+        super(props);
+        console.log(props);
+        this.id = props.params.id;
+        this.isNew = (typeof this.id === 'undefined');
         this.state = {
-            id: isNew ? '' : this.p.params.id,
+            first_name_static: '',
+            last_name_static: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            age: '',
+            grade: '',
+            dirty: false
         };
         autoBind(this);
         this.handleChange.bind(this);
         this.handleSave.bind(this);
     }
 
-    componentDidMount(){
-        this.handleInit();
+    componentWillReceiveProps(nextProps) {
+        if (Object.keys(nextProps.params).length >= 0)
+            return;
+        this.isNew = true;
+        this.resetState();
+        this.forceUpdate();
     }
 
-    handleInit(){
-        if (this.isNew)
+    componentDidMount() {
+        if (this.isNew) {
             return;
-        this.props.fetchStudent(this.state.id)
+        }
+        this.props.fetchStudent(this.props.params.id).then(() => {
+            this.setState({
+                first_name_static: this.props.student.first_name,
+                last_name_static: this.props.student.last_name,
+                first_name: this.props.student.first_name,
+                last_name: this.props.student.last_name,
+                email: this.props.student.email,
+                age: this.props.student.age,
+                grade: this.props.student.grade,
+                dirty: this.props.dirty
+            })
+        });
+        this.forceUpdate();
     }
+
+    resetState() {
+        this.setState({
+            first_name_static: '',
+            last_name_static: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            age: '',
+            grade: '',
+            dirty: ''
+        })
+    }
+
 
     handleChange(event) {
-        this.props.updateGlobalStudentState(event.target.name, event.target.value)
+        this.setState({
+            [event.target.name]: event.target.value,
+            dirty: true
+        });
     }
 
     handleSave() {
+        let student = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email,
+            age: this.state.age,
+            grade: this.state.grade
+        };
+
         if (this.isNew)
-            this.props.createStudent(this.props.student);
+            this.props.createStudent(student);
         else
-            this.props.updateStudent(this.state.id, this.props.student);
+            this.props.updateStudent(this.id, student);
     }
 
-    handleExit(){
-        if (!this.props.dirty)
+    componentWillUnmount() {
+        if (!this.state.dirty)
             return;
 
         //todo: build popup to discard changes
     }
 
 
-    render(){
-
-        return(
+    render() {
+        return (
             <div className="container">
-                <form onSubmit={this.handleSave}>
-                    <legend>{this.loading ? "Loading..." : this.props.header}</legend>
+                <form className="form-control-static" onSubmit={this.handleSave}>
+                    <legend>{this.isNew ? "Create Student" : "Updating " + this.state.first_name_static + " " + this.state.last_name_static}</legend>
                     <div className="form-group">
                         <label htmlFor="txtFirstName">First Name</label>
-                        <input type="text" name="firstName" id="txtFirstName" placeholder="First Name" autoFocus className="form-control" value={this.props.student.first_name} onChange={this.handleChange}/>
+                        <input type="text" name="first_name" id="txtFirstName" placeholder="First Name" autoFocus
+                               className="form-control" value={this.state.first_name} onChange={this.handleChange}
+                               required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="txtLastName">Last Name</label>
-                        <input type="text" name="lastName" id="txtLastName" placeholder="Last Name" autoFocus className="form-control" value={this.props.student.last_name} onChange={this.handleChange}/>
+                        <input type="text" name="last_name" id="txtLastName" placeholder="Last Name"
+                               className="form-control" value={this.state.last_name} onChange={this.handleChange}
+                               required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="txtEmail">First Name</label>
-                        <input type="email" name="email" id="txtEmail" placeholder="Email" autoFocus className="form-control" value={this.props.student.email} onChange={this.handleChange}/>
+                        <input type="email" name="email" id="txtEmail" placeholder="Email" className="form-control"
+                               value={this.state.email} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="numAge">Age</label>
-                        <input type="number" name="age" id="numAge" placeholder="Age" className="form-control" value={this.props.student.age} onChange={this.handleChange}/>
+                        <input type="number" name="age" id="numAge" placeholder="Age" className="form-control"
+                               value={this.state.age} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="ddlGrade">Grade</label>
-                        <select className="form-control" id="ddlGrade" value={this.props.student.grade} onChange={this.handleChange}>
+                        <select className="form-control" name="grade" id="ddlGrade" value={this.state.grade}
+                                onChange={this.handleChange}>
+                            <option>Select...</option>
                             <option value="Pre-K">Pre-K</option>
                             <option value="K">Kindergarten</option>
                             <option value="1">1</option>
@@ -86,7 +144,7 @@ class Create extends React.Component {
                             <option value="12">12</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-success">Save</button>
+                    <button type="submit" className="btn btn-success right">Save</button>
                 </form>
             </div>
         )
@@ -95,7 +153,8 @@ class Create extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        student: state.student,
+        student: state.create.student,
+        dirty: state.create.dirty,
         messages: state.messages
     };
 };
@@ -103,8 +162,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         //todo: map dispatch functions to properties
-        fetchStudent : (id) => dispatch(fetchStudent(id)),
-        updateStudent : (id, student) => dispatch(updateStudent(id, student)),
+        fetchStudent: (id) => dispatch(fetchStudent(id)),
+        updateStudent: (id, student) => dispatch(updateStudent(id, student)),
         createStudent: (student) => dispatch(createStudent(student)),
         updateGlobalStudentState: (propName, propVal) => dispatch(updateGlobalStudentState(propName, propVal))
     }

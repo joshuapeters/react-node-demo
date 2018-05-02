@@ -2,14 +2,25 @@ import * as ActionTypes from './ActionTypes'
 
 export function fetchStudent(id){
     return dispatch => {
-        fetch('/api/students/' + id).then((Response) => Response.json()).
-        then((response) =>
-        {
-            dispatch({type: ActionTypes.CREATE_OR_EDIT_LOAD_EXISTING, student: response});
-        })
-        .catch((ex)=>{
-            dispatch({type: ActionTypes.ERROR_FETCHING_STUDENT, messages: [{msg: ex.message}]});
-        })
+        dispatch({
+            type: 'CLEAR_MESSAGES'
+        });
+        dispatch({
+            type: ActionTypes.CLEAR_ADD_OR_UPDATE
+        });
+        return  fetch('/api/students/' + id).then((Response) => Response.json()).
+                then((response) =>
+                {
+                    console.log(response);
+                    dispatch({
+                        type: ActionTypes.CREATE_OR_EDIT_LOAD_EXISTING,
+                        student: response,
+                        dirty: false
+                    });
+                })
+                .catch((ex)=>{
+                    dispatch({type: ActionTypes.ERROR_FETCHING_STUDENT, messages: [{msg: ex.message}]});
+                })
     }
 }
 

@@ -43,7 +43,7 @@ var app = express();
 var compiler = webpack(config);
 
 mongoose.connect(process.env.MONGODB);
-mongoose.connection.on('error', function() {
+mongoose.connection.on('error', function () {
     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
     process.exit(1);
 });
@@ -54,13 +54,13 @@ var Student = require('./api/models/studentModel');
 var hbs = exphbs.create({
     defaultLayout: 'main',
     helpers: {
-        ifeq: function(a, b, options) {
+        ifeq: function (a, b, options) {
             if (a === b) {
                 return options.fn(this);
             }
             return options.inverse(this);
         },
-        toJSON : function(object) {
+        toJSON: function (object) {
             return JSON.stringify(object);
         }
     }
@@ -70,16 +70,16 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 app.use(compression());
-app.use(sass({ src: path.join(__dirname, 'public'), dest: path.join(__dirname, 'public') }));
+app.use(sass({src: path.join(__dirname, 'public'), dest: path.join(__dirname, 'public')}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
-    req.isAuthenticated = function() {
+app.use(function (req, res, next) {
+    req.isAuthenticated = function () {
         var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
         try {
             return jwt.verify(token, process.env.TOKEN_SECRET);
@@ -90,7 +90,7 @@ app.use(function(req, res, next) {
 
     if (req.isAuthenticated()) {
         var payload = req.isAuthenticated();
-        User.findById(payload.sub, function(err, user) {
+        User.findById(payload.sub, function (err, user) {
             req.user = user;
             next();
         });
@@ -120,30 +120,32 @@ var apiRoutes = require('./api/routes/StudentRoutes');
 apiRoutes(app);
 
 // React server rendering
-app.use(function(req, res) {
+app.use(function (req, res) {
     var initialState = {
-        auth: { token: req.cookies.token, user: req.user },
+        auth: {token: req.cookies.token, user: req.user},
         messages: {},
         students: [],
-        student: {
-            first_name: '',
-            last_name: '',
-            email: '',
-            age: '',
-            grade: ''
-        },
-        dirty: false
+        create: {
+            student: {
+                _id: '',
+                first_name: '',
+                last_name: '',
+                email: '',
+                age: '',
+                grade: ''
+            },
+            dirty: false
+        }
     };
 
     var store = configureStore(initialState);
-
-    Router.match({ routes: routes.default(store), location: req.url }, function(err, redirectLocation, renderProps) {
+    Router.match({routes: routes.default(store), location: req.url}, function (err, redirectLocation, renderProps) {
         if (err) {
             res.status(500).send(err.message);
         } else if (redirectLocation) {
             res.status(302).redirect(redirectLocation.pathname + redirectLocation.search);
         } else if (renderProps) {
-            var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
+            var html = ReactDOM.renderToString(React.createElement(Provider, {store: store},
                 React.createElement(Router.RouterContext, renderProps)
             ));
             res.render('layouts/main', {
@@ -158,13 +160,13 @@ app.use(function(req, res) {
 
 // Production error handler
 if (app.get('env') === 'production') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         console.error(err.stack);
         res.sendStatus(err.status || 500);
     });
 }
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 

@@ -1,12 +1,13 @@
 import * as ActionTypes from '../actions/ActionTypes'
+
 const initialState = {
     student: {
         _id: "",
         first_name: "",
         last_name: "",
+        email: "",
         age: "",
-        grade: "",
-        email: ""
+        grade: ""
     },
     dirty: false
 };
@@ -20,7 +21,10 @@ export default function create(state = initialState, action) {
         case ActionTypes.CREATE_OR_EDIT_LOAD_EXISTING:
         case ActionTypes.CREATE_STUDENT_SUCCESS:
         case ActionTypes.UPDATE_STUDENT_SUCCESS:
-            return action;
+            return Object.assign({}, state, {
+                student: action.student,
+                dirty: action.dirty
+            });
         case ActionTypes.CREATE_STUDENT_ERROR:
         case ActionTypes.UPDATE_STUDENT_ERROR:
         case ActionTypes.ERROR_FETCHING_STUDENT:

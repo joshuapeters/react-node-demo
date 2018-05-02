@@ -75,7 +75,7 @@ class Students extends React.Component {
                 <Messages messages={this.props.messages}/>
                 <ButtonToolbar>
                     <Button bsStyle="danger" disabled={!this.state.canDelete} onClick={this.popDeleteConfirmation}>Delete</Button>
-                    <Button bsStyle="primary" disabled={!this.state.canEdit} href={"/create/" + this.state.selected[0]}>Edit</Button>
+                    <Button bsStyle="primary" disabled={!this.state.canEdit} href={"/edit/" + this.state.selected[0]}>Edit</Button>
                 </ButtonToolbar>
                 <ReactTable className="-highlight"
                             data = {this.props.students}
