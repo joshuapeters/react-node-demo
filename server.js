@@ -29,6 +29,7 @@ require('babel-polyfill');
 
 // Models
 var User = require('./models/User');
+var Student = require('./api/models/studentModel');
 
 
 // Controllers
@@ -49,9 +50,6 @@ mongoose.connection.on('error', function (e) {
     console.log(e);
     process.exit(1);
 });
-
-var Student = require('./api/models/studentModel');
-
 
 var hbs = exphbs.create({
     defaultLayout: 'main',
