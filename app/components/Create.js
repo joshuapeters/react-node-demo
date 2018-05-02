@@ -1,6 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind'
-import {fetchStudent, createStudent, updateStudent, updateGlobalStudentState} from "../actions/create";
+import {fetchStudent, createStudent, updateStudent} from "../actions/create";
 import {connect} from "react-redux";
 import Messages from "./Messages";
 
@@ -123,20 +123,20 @@ class Create extends React.Component {
                         <select className="form-control" name="grade" id="ddlGrade" value={this.state.grade}
                                 onChange={this.handleChange}>
                             <option>Select...</option>
-                            <option value="Pre-K">Pre-K</option>
-                            <option value="K">Kindergarten</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                            <option value="0">Pre-K</option>
+                            <option value="1">Kindergarten</option>
+                            <option value="2">1</option>
+                            <option value="3">2</option>
+                            <option value="4">3</option>
+                            <option value="5">4</option>
+                            <option value="6">5</option>
+                            <option value="7">6</option>
+                            <option value="8">7</option>
+                            <option value="9">8</option>
+                            <option value="10">9</option>
+                            <option value="11">10</option>
+                            <option value="12">11</option>
+                            <option value="13">12</option>
                         </select>
                     </div>
                     <button type="submit" className="btn btn-success right">Save</button>
@@ -159,8 +159,7 @@ const mapDispatchToProps = (dispatch) => {
         //todo: map dispatch functions to properties
         fetchStudent: (id) => dispatch(fetchStudent(id)),
         updateStudent: (id, student) => dispatch(updateStudent(id, student)),
-        createStudent: (student) => dispatch(createStudent(student)),
-        updateGlobalStudentState: (propName, propVal) => dispatch(updateGlobalStudentState(propName, propVal))
+        createStudent: (student) => dispatch(createStudent(student))
     }
 };
 

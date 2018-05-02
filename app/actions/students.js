@@ -2,10 +2,10 @@ import * as ActionTypes from './ActionTypes'
 
 export function fetchAllStudents(){
     return dispatch => {
-        fetch('/api/students/').then((Response) => Response.json()).
+        fetch('/api/students?limit=0').then((Response) => Response.json()).
         then((response) =>
         {
-            dispatch({type: ActionTypes.FETCHED_ALL_STUDENTS, payload: response});
+            dispatch({type: ActionTypes.FETCHED_ALL_STUDENTS, payload: response.data});
         })
         .catch((ex)=>{
             dispatch({type: ActionTypes.ERROR_FETCHING_STUDENTS, students: [], messages: [{msg: ex.message}]});

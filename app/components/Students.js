@@ -55,7 +55,7 @@ class Students extends React.Component {
     render() {
         const columns = [{
             Header: 'First Name',
-            accessor: 'first_name' // String-based value accessors!
+            accessor: 'first_name'
         }, {
             Header: 'Last Name',
             accessor: 'last_name'

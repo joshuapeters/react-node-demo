@@ -16,24 +16,13 @@ export function fetchStudent(id){
                     }
                     dispatch({
                         type: ActionTypes.CREATE_OR_EDIT_LOAD_EXISTING,
-                        student: response,
+                        student: response.students,
                         dirty: false
                     });
                 })
                 .catch((ex)=>{
                     dispatch({type: ActionTypes.ERROR_FETCHING_STUDENT, messages: [{msg: ex.message}]});
                 })
-    }
-}
-
-export function updateGlobalStudentState(propName, propValue){
-    return dispatch =>{
-        dispatch({
-            type: ActionTypes.UPDATE_LOCAL_STUDENT_STATE,
-            propName,
-            propValue,
-            dirty: true
-        })
     }
 }
 
