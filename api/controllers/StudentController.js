@@ -1,8 +1,14 @@
 import { StudentProvider } from '../providers/StudentProvider'
+paginate = require('express-paginate');
 
 const studentProvider = new StudentProvider();
 
 exports.getAllStudents = function(req, res){
+    if (req.query.limit && req.query.page){
+        this.getAllStudentsPaged(req, res);
+        return;
+    }
+
     try{
         studentProvider.getAllStudents().then(function(studentArray){
             res.json(studentArray);
@@ -13,7 +19,27 @@ exports.getAllStudents = function(req, res){
     catch (err){
         res.send(err);
     }
+};
 
+exports.getAllStudentsPaged = function(req, res){
+    try{
+        const [results, itemCount] = Promise.all([
+            studentProvider.getAllStudentsByPage(req.query.limit, req.query.page),
+            studentProvider.getStudentCount()
+        ]);
+
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+
+        res.json({
+            page: req.query.page,
+            count: results.length,
+            has_more: paginate.hasNextPages(req)(pageCount),
+            data: results
+        });
+    }
+    catch (err){
+        next(err);
+    }
 };
 
 exports.createStudent = function(req, res){

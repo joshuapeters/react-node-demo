@@ -18,9 +18,10 @@ var request = require('request');
 var sass = require('node-sass-middleware');
 var webpack = require('webpack');
 var config = require('./webpack.config');
+var paginate = require('express-paginate');
 
 // Load environment variables from .env file
-//dotenv.load();
+dotenv.load();
 
 // ES6 Transpiler
 require('babel-core/register');
@@ -42,9 +43,11 @@ var app = express();
 
 var compiler = webpack(config);
 
-mongoose.connect(process.env.MONGODB);
-mongoose.connection.on('error', function () {
+//mongoose.connect(process.env.MONGODB);
+mongoose.connect('mongodb://app-user:pffr4hceiwxR6Vmm@andculture-shard-00-00-ujwk6.mongodb.net:27017,andculture-shard-00-01-ujwk6.mongodb.net:27017,andculture-shard-00-02-ujwk6.mongodb.net:27017/test?ssl=true&replicaSet=andculture-shard-0&authSource=admin');
+mongoose.connection.on('error', function (e) {
     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    console.log(e);
     process.exit(1);
 });
 
@@ -77,6 +80,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(paginate.middleware(10, 25));
 
 app.use(function (req, res, next) {
     req.isAuthenticated = function () {

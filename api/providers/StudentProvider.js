@@ -14,6 +14,17 @@ export class StudentProvider{
         return this._model.find({});
     }
 
+    getAllStudentsByPage(limit, page){
+        return this._model.find({})
+            .skip(limit * page)
+            .lean()
+            .exec();
+    }
+
+    getStudentCount(){
+        return this._model.count({});
+    }
+
     getStudent(id){
         if (typeof id === 'undefined')
             throw new Error("ArgumentError: id cannot be undefined!");
