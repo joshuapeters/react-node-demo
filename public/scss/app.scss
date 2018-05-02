@@ -1,30 +1,4 @@
-﻿/**
- * CONTENTS
- *
- * SETTINGS
- * Global variables and maps that are used throughout the project
- *
- * TOOLS
- * Mixins and functions used throughout the application for better reuse
- *
- * GENERIC
- * Normalization and resetting of all html elements
- *
- * ELEMENTS
- * General elements such as headings, paragraphs, anchors, etc...
- *
- * OBJECTS
- * Wrapping and constraining elements that dictate positioning but not physical characteristics
- *
- * COMPONENTS
- * All items that describe the physical attributes like buttons, sliders, cards, badges, etc...
- *
- * TRUMPS
- * An area that is focused on overriding default styles without the use of !important
- *
- */
-
-@import "00-vendor/__vendor";
+﻿@import "00-vendor/__vendor";
 @import "01-settings/__settings";
 @import "02-tools/__tools";
 @import "03-generic/__generic";
