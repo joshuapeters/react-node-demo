@@ -1,5 +1,5 @@
 import { StudentProvider } from '../providers/StudentProvider'
-paginate = require('express-paginate');
+import * as paginate from 'express-paginate';
 
 const studentProvider = new StudentProvider();
 
