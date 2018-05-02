@@ -17,8 +17,7 @@ class Create extends React.Component {
             last_name: '',
             email: '',
             age: '',
-            grade: '',
-            dirty: false
+            grade: ''
         };
         autoBind(this);
         this.handleChange.bind(this);
@@ -45,8 +44,7 @@ class Create extends React.Component {
                 last_name: this.props.student.last_name,
                 email: this.props.student.email,
                 age: this.props.student.age,
-                grade: this.props.student.grade,
-                dirty: this.props.dirty
+                grade: this.props.student.grade
             })
         });
         this.forceUpdate();
@@ -60,16 +58,14 @@ class Create extends React.Component {
             last_name: '',
             email: '',
             age: '',
-            grade: '',
-            dirty: ''
+            grade: ''
         })
     }
 
 
     handleChange(event) {
         this.setState({
-            [event.target.name]: event.target.value,
-            dirty: true
+            [event.target.name]: event.target.value
         });
     }
 
@@ -86,13 +82,6 @@ class Create extends React.Component {
             this.props.createStudent(student);
         else
             this.props.updateStudent(this.id, student);
-    }
-
-    componentWillUnmount() {
-        if (!this.state.dirty)
-            return;
-
-        //todo: build popup to discard changes
     }
 
 
