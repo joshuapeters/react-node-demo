@@ -16,3 +16,21 @@ describe('GET /contact', function() {
       .expect(200, done);
   });
 });
+
+describe('GET /students', function() {
+    it('should render ok', function(done) {
+        request(server)
+            .get('/students')
+            .expect(200, done);
+    });
+});
+
+describe('GET /create', function() {
+    it('should render ok', function(done) {
+        request(server)
+            .get('/create')
+            .expect(200, done);
+    });
+});
+
+

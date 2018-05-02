@@ -5955,8 +5955,9 @@ header {
 h1, h2, h3, h4, h5, h6 {
   font-size: 5rem; }
 
+/*** FONT COLOR REQUIREMENT ***/
 p {
-  color: #ff0000; }
+  color: #0d0d0d; }
 
 .login-container {
   max-width: 555px; }

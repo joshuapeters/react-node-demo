@@ -11,7 +11,9 @@ export function fetchStudent(id){
         return  fetch('/api/students/' + id).then((Response) => Response.json()).
                 then((response) =>
                 {
-                    console.log(response);
+                    if (!response.success) {
+                        throw new Error("There was an error finding your student. Please try again or contact support.");
+                    }
                     dispatch({
                         type: ActionTypes.CREATE_OR_EDIT_LOAD_EXISTING,
                         student: response,

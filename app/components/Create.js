@@ -2,6 +2,7 @@ import React from 'react';
 import autoBind from 'react-autobind'
 import {fetchStudent, createStudent, updateStudent, updateGlobalStudentState} from "../actions/create";
 import {connect} from "react-redux";
+import Messages from "./Messages";
 
 class Create extends React.Component {
 
@@ -17,7 +18,8 @@ class Create extends React.Component {
             last_name: '',
             email: '',
             age: '',
-            grade: ''
+            grade: '',
+            show: false
         };
         autoBind(this);
         this.handleChange.bind(this);
@@ -44,7 +46,8 @@ class Create extends React.Component {
                 last_name: this.props.student.last_name,
                 email: this.props.student.email,
                 age: this.props.student.age,
-                grade: this.props.student.grade
+                grade: this.props.student.grade,
+                show: true
             })
         });
         this.forceUpdate();
@@ -87,8 +90,11 @@ class Create extends React.Component {
 
     render() {
         return (
+
             <div className="container">
-                <form className="form-control-static" onSubmit={this.handleSave}>
+                <Messages messages={this.props.messages}/>
+                <h1 className={this.state.show ? "hidden" : "header"}>Loading...</h1>
+                <form className={this.state.show ? "form-control-static" : "hidden"} onSubmit={this.handleSave}>
                     <legend>{this.isNew ? "Create Student" : "Updating " + this.state.first_name_static + " " + this.state.last_name_static}</legend>
                     <div className="form-group">
                         <label htmlFor="txtFirstName">First Name</label>

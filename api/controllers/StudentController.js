@@ -31,7 +31,10 @@ exports.createStudent = function(req, res){
 exports.getStudentById = function(req, res){
     try{
         studentProvider.getStudent(req.params.id).then(function (students){
-            res.json(students);
+            let success = true;
+            if (students === null)
+                success = false;
+            res.json({success, students});
         }).catch((ex) =>{
             res.send(ex);
         });
