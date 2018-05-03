@@ -41,8 +41,10 @@ This boilerplate is built using the following libraries:
         * Sort by age ascending and grade descending: ```sortBy[age]=1&sortBy[grade]=-1```
 
 * Show form validation client side making student first and last name required
+    * completed by simply using the "required" property on inputs
 * Utilize a JS abstraction such as TypeScript
 * Deploy to cloud host such as Heroku
+    * available at ```https://andculture-react-demo.herokuapp.com/```
 * Add custom classes on alert dialog using BEM Methodology, and style it in its respective scss partial. 
 
 ## Software Requirements
