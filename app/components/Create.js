@@ -86,10 +86,16 @@ class Create extends React.Component {
             grade: this.state.grade
         };
 
-        if (this.isNew)
-            this.props.createStudent(student);
-        else
-            this.props.updateStudent(this.id, student);
+        this.createOrUpdate(this.id, student, this.isNew).then(Create.redirectToLocation('/students'))
+
+    }
+
+    createOrUpdate(id, student, isNew){
+        return isNew ? this.props.createStudent(student) : this.props.updateStudent(id, student);
+    }
+
+    static redirectToLocation(location){
+        window.location = location;
     }
 
 
