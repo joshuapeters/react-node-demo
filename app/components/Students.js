@@ -19,6 +19,7 @@ class Students extends React.Component {
         autoBind(this);
         this.handleHide.bind(this);
         this.handleDelete.bind(this);
+        this.handleRowClick.bind(this);
     }
 
     componentDidMount(){
@@ -50,6 +51,32 @@ class Students extends React.Component {
             canDelete: false,
             show: false
         });
+    }
+
+    handleRowClick(state, rowInfo){
+        if (!rowInfo)
+            return {};
+
+        let rowObjId = rowInfo.original._id,
+            selected = this.state.selected,
+            selectedIndex = selected.indexOf(rowObjId);
+
+        return {
+            onClick: () => {
+
+                if (selectedIndex >= 0)
+                    selected.splice(selectedIndex, 1);
+                else
+                    selected.push(rowObjId);
+
+                this.setState({
+                    selected: selected,
+                    canEdit: selected.length === 1,
+                    canDelete: selected.length > 0
+                });
+            },
+            style: (selectedIndex < 0) ? {} : { background: "#beffec" }
+        }
     }
 
     render() {
@@ -84,32 +111,7 @@ class Students extends React.Component {
                             multiSort = "true"
                             filterable = "true"
                             // enable selected row highlighting
-                            getTrProps={(state, rowInfo) => {
-
-                                if (!rowInfo)
-                                    return {};
-
-                                let rowObjId = rowInfo.original._id,
-                                    selected = this.state.selected,
-                                    selectedIndex = selected.indexOf(rowObjId);
-
-                                return {
-                                    onClick: () => {
-
-                                        if (selectedIndex >= 0)
-                                            selected.splice(selectedIndex, 1);
-                                        else
-                                            selected.push(rowObjId);
-
-                                        this.setState({
-                                            selected: selected,
-                                            canEdit: selected.length === 1,
-                                            canDelete: selected.length > 0
-                                        });
-                                    },
-                                    style: (selectedIndex < 0) ? {} : { background: "#beffec" }
-                                }
-                            }}
+                            getTrProps={this.handleRowClick}
                 />
 
                 <Modal
