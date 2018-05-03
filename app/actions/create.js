@@ -1,4 +1,6 @@
 import * as ActionTypes from './ActionTypes'
+import { browserHistory } from 'react-router';
+
 
 export function fetchStudent(id){
     return dispatch => {
@@ -16,8 +18,7 @@ export function fetchStudent(id){
                     }
                     dispatch({
                         type: ActionTypes.CREATE_OR_EDIT_LOAD_EXISTING,
-                        student: response.students,
-                        dirty: false
+                        student: response.students
                     });
                 })
                 .catch((ex)=>{
@@ -38,9 +39,9 @@ export function createStudent(student){
             dispatch ({
                 type: ActionTypes.CREATE_STUDENT_SUCCESS,
                 messages: [{ msg : "Student successfully created!" }],
-                student,
-                dirty: false
-            })
+                student
+            });
+            redirectToPage('/students');
         }).catch((ex)=>{
             dispatch ({
                 type: ActionTypes.CREATE_STUDENT_ERROR,
@@ -59,13 +60,14 @@ export function updateStudent(id, student){
             headers: {
                 'content-type': 'application/json'
             }
+
         }).then(() => {
             dispatch ({
                 type: ActionTypes.UPDATE_STUDENT_SUCCESS,
                 messages: [{ msg : "Successfully updated student!" }],
-                student,
-                dirty: false
-            })
+                student
+            });
+            redirectToPage('/students');
         }).catch((ex)=>{
             dispatch ({
                 type: ActionTypes.UPDATE_STUDENT_ERROR,
@@ -73,4 +75,8 @@ export function updateStudent(id, student){
             })
         })
     }
+}
+
+function redirectToPage(location){
+    browserHistory.push(location);
 }

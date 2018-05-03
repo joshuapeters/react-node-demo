@@ -76,8 +76,7 @@ class Create extends React.Component {
         });
     }
 
-    handleSave(e) {
-        e.preventDefault();
+    handleSave() {
         let student = {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
@@ -86,16 +85,11 @@ class Create extends React.Component {
             grade: this.state.grade
         };
 
-        this.createOrUpdate(this.id, student, this.isNew).then(Create.redirectToLocation('/students'))
-
+        this.createOrUpdate(this.id, student, this.isNew);
     }
 
     createOrUpdate(id, student, isNew){
         return isNew ? this.props.createStudent(student) : this.props.updateStudent(id, student);
-    }
-
-    static redirectToLocation(location){
-        window.location = location;
     }
 
 
