@@ -36,6 +36,9 @@ class Create extends React.Component {
 
     componentDidMount() {
         if (this.isNew) {
+            this.setState({
+                show: true
+            });
             return;
         }
         this.props.fetchStudent(this.props.params.id).then(() => {
