@@ -13,6 +13,8 @@ export default function messages(state = {}, action) {
         case 'UNLINK_FAILURE':
         case 'LINK_FAILURE':
         case ActionTypes.ERROR_FETCHING_STUDENTS:
+        case ActionTypes.CREATE_STUDENT_ERROR:
+        case ActionTypes.UPDATE_STUDENT_ERROR:
         case ActionTypes.DELETE_STUDENT_ERROR:
             return {
                 error: action.messages
@@ -21,6 +23,8 @@ export default function messages(state = {}, action) {
         case 'CHANGE_PASSWORD_SUCCESS':
         case 'RESET_PASSWORD_SUCCESS':
         case 'CONTACT_FORM_SUCCESS':
+        case ActionTypes.CREATE_STUDENT_SUCCESS:
+        case ActionTypes.UPDATE_STUDENT_SUCCESS:
         case ActionTypes.DELETE_STUDENT_SUCCESS:
             return {
                 success: action.messages

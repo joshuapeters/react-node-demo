@@ -27,7 +27,7 @@ class Create extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (Object.keys(nextProps.params).length >= 0)
+        if (Object.keys(nextProps.params).length > 0)
             return;
         this.isNew = true;
         this.resetState();
@@ -64,7 +64,8 @@ class Create extends React.Component {
             last_name: '',
             email: '',
             age: '',
-            grade: ''
+            grade: '',
+            show: true
         })
     }
 
@@ -75,7 +76,8 @@ class Create extends React.Component {
         });
     }
 
-    handleSave() {
+    handleSave(e) {
+        e.preventDefault();
         let student = {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
@@ -97,7 +99,7 @@ class Create extends React.Component {
             <div className="container">
                 <Messages messages={this.props.messages}/>
                 <h1 className={this.state.show ? "hidden" : "header"}>Loading...</h1>
-                <form className={this.state.show ? "form-control-static" : "hidden"} onSubmit={this.handleSave}>
+                <form className={this.state.show ? "form-control-static" : "hidden"}>
                     <legend>{this.isNew ? "Create Student" : "Updating " + this.state.first_name_static + " " + this.state.last_name_static}</legend>
                     <div className="form-group">
                         <label htmlFor="txtFirstName">First Name</label>
@@ -142,7 +144,7 @@ class Create extends React.Component {
                             <option value="13">12</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-success right">Save</button>
+                    <button onClick={this.handleSave} className="btn btn-success right">Save</button>
                 </form>
             </div>
         )
@@ -159,7 +161,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        //todo: map dispatch functions to properties
         fetchStudent: (id) => dispatch(fetchStudent(id)),
         updateStudent: (id, student) => dispatch(updateStudent(id, student)),
         createStudent: (student) => dispatch(createStudent(student))

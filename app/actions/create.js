@@ -43,7 +43,7 @@ export function createStudent(student){
             })
         }).catch((ex)=>{
             dispatch ({
-                type: ActionTypes.DELETE_STUDENT_ERROR,
+                type: ActionTypes.CREATE_STUDENT_ERROR,
                 messages: [{msg: ex.message}]
             })
         })
@@ -62,13 +62,13 @@ export function updateStudent(id, student){
         }).then(() => {
             dispatch ({
                 type: ActionTypes.UPDATE_STUDENT_SUCCESS,
-                messages: [{ msg : "Successfully deleted selected students!" }],
+                messages: [{ msg : "Successfully updated student!" }],
                 student,
                 dirty: false
             })
         }).catch((ex)=>{
             dispatch ({
-                type: ActionTypes.DELETE_STUDENT_ERROR,
+                type: ActionTypes.UPDATE_STUDENT_ERROR,
                 messages: [{msg: ex.message}]
             })
         })
