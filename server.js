@@ -70,7 +70,12 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 app.use(compression());
-app.use(sass({src: path.join(__dirname, 'public'), dest: path.join(__dirname, 'public')}));
+app.use(sass({
+    src: path.join(__dirname, 'public/scss'),
+    dest: path.join(__dirname, 'public'),
+    debug: true,
+    prefix: '/css'
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

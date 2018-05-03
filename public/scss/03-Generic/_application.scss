@@ -63,12 +63,12 @@ header{
 }
 
 h1, h2, h3, h4, h5, h6{
-  @include font-size-rem(5);
+  @include font-size-rem(2);
 }
 
 /*** FONT COLOR REQUIREMENT ***/
 p{
-  @include set-font-color("green");
+  @include set-font-color("red");
 }
 
 .login-container {
