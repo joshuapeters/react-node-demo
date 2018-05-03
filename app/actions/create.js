@@ -1,5 +1,7 @@
 import * as ActionTypes from './ActionTypes'
 import { browserHistory } from 'react-router';
+import {Helpers} from "../var/Helpers";
+
 
 
 export function fetchStudent(id){
@@ -41,7 +43,7 @@ export function createStudent(student){
                 messages: [{ msg : "Student successfully created!" }],
                 student
             });
-            redirectToPage('/students');
+            Helpers.redirect('/students');
         }).catch((ex)=>{
             dispatch ({
                 type: ActionTypes.CREATE_STUDENT_ERROR,
@@ -67,7 +69,7 @@ export function updateStudent(id, student){
                 messages: [{ msg : "Successfully updated student!" }],
                 student
             });
-            redirectToPage('/students');
+            Helpers.redirect('/students');
         }).catch((ex)=>{
             dispatch ({
                 type: ActionTypes.UPDATE_STUDENT_ERROR,
@@ -75,8 +77,4 @@ export function updateStudent(id, student){
             })
         })
     }
-}
-
-function redirectToPage(location){
-    browserHistory.push(location);
 }

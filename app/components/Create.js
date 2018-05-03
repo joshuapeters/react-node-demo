@@ -76,7 +76,8 @@ class Create extends React.Component {
         });
     }
 
-    handleSave() {
+    handleSave(e) {
+        e.preventDefault();
         let student = {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
@@ -99,35 +100,35 @@ class Create extends React.Component {
             <div className="container">
                 <Messages messages={this.props.messages}/>
                 <h1 className={this.state.show ? "hidden" : "header"}>Loading...</h1>
-                <form className={this.state.show ? "form-control-static" : "hidden"}>
+                <form onSubmit={this.handleSave} className={this.state.show ? "form-control-static" : "hidden"}>
                     <legend>{this.isNew ? "Create Student" : "Updating " + this.state.first_name_static + " " + this.state.last_name_static}</legend>
                     <div className="form-group">
                         <label htmlFor="txtFirstName">First Name</label>
-                        <input type="text" name="first_name" id="txtFirstName" placeholder="First Name" autoFocus
+                        <input type="text" name="first_name" id="txtFirstName" placeholder="Bobby..." autoFocus
                                className="form-control" value={this.state.first_name} onChange={this.handleChange}
                                required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="txtLastName">Last Name</label>
-                        <input type="text" name="last_name" id="txtLastName" placeholder="Last Name"
+                        <input type="text" name="last_name" id="txtLastName" placeholder="Smith..."
                                className="form-control" value={this.state.last_name} onChange={this.handleChange}
                                required/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtEmail">First Name</label>
-                        <input type="email" name="email" id="txtEmail" placeholder="Email" className="form-control"
+                        <label htmlFor="txtEmail">Email Address</label>
+                        <input type="email" name="email" id="txtEmail" placeholder="sample@email.com..." className="form-control"
                                value={this.state.email} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="numAge">Age</label>
-                        <input type="number" name="age" id="numAge" placeholder="Age" className="form-control"
+                        <input type="number" name="age" id="numAge" placeholder="15..." className="form-control"
                                value={this.state.age} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="ddlGrade">Grade</label>
                         <select className="form-control" name="grade" id="ddlGrade" value={this.state.grade}
                                 onChange={this.handleChange}>
-                            <option>Select...</option>
+                            <option>Select Grade...</option>
                             <option value="0">Pre-K</option>
                             <option value="1">Kindergarten</option>
                             <option value="2">1</option>
@@ -144,7 +145,7 @@ class Create extends React.Component {
                             <option value="13">12</option>
                         </select>
                     </div>
-                    <button onClick={this.handleSave} className="btn btn-success right">Save</button>
+                    <button type="submit" className="btn btn-success right">Save</button>
                 </form>
             </div>
         )
