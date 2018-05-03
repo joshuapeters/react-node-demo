@@ -33,6 +33,9 @@ This boilerplate is built using the following libraries:
     * specify ```page``` and ```limit``` values as query params
     * max limit of 50 enforced by server
 * Add filtering to the student list
+    * To filter, specify query property, the mongoose query specifier (if needed), and the predicate
+    * ```age[$gte]=10&age[$lte]=20``` is equal to...
+    * ```select * from students where age >= 10 AND where age <= 20```
 * Allow sorting by column on the student list
     * To sort, specify query params in url either by a single property's mongoose sort query:
         * Asc: ```orderBy=age```

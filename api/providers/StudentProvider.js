@@ -15,18 +15,15 @@ export class StudentProvider{
     }
 
     getAllStudentsByPage(limit, page, filter, orderBy){
-        let p = this._model
-            .find({})
+        return this._model
+            .find(filter)
             .sort(orderBy)
             .limit(limit)
             .skip(limit * (page - 1))
             .lean()
-            .exec()
             .catch((err) => {
                 console.error(err);
             });
-
-        return p;
     }
 
     getStudentCount(){
