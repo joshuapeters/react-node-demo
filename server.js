@@ -72,7 +72,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(compression());
 app.use(sass({
     src: path.join(__dirname, 'public/scss'),
-    dest: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public/css'),
     debug: true,
     prefix: '/css'
 }));
