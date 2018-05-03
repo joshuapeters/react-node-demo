@@ -1,6 +1,35 @@
+$modal__title--color: #b61b17;
+$modal__title--font-size: 3em;
+$modal__title--font-style: italic;
+$modal__title--font-weight: bold;
+$modal__title--text-color: #fff;
+
+$modal__body--text-color: rgb(0,0,0);
+$modal__body--font-size: 1.6em;
+
+/**/
 .modal-container {
   position: relative;
 }
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
+}
+
+.modal__title{
+  background-color: $modal__title--color;
+}
+
+.modal__title h1, h2, h3, h4, h5, h6{
+  font-size: $modal__title--font-size;
+  font-style: $modal__title--font-style;
+  font-weight: $modal__title--font-weight;
+  color: $modal__title--text-color;
+}
+
+.modal__body{
+  font-size: $modal__body--font-size;
+}
+
+.modal__body p{
+  color: $modal__body--text-color;
 }

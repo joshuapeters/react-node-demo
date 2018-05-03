@@ -45,7 +45,9 @@ This boilerplate is built using the following libraries:
 * Utilize a JS abstraction such as TypeScript
 * Deploy to cloud host such as Heroku
     * available at ```https://andculture-react-demo.herokuapp.com/```
-* Add custom classes on alert dialog using BEM Methodology, and style it in its respective scss partial. 
+* Add custom classes on alert dialog using BEM Methodology, and style it in its respective scss partial.
+    * modal viewable at /students page when deleting a student
+    * classes can be found in /public/06-Components/_modal.scss
 
 ## Software Requirements
 

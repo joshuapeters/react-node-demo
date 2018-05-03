@@ -11793,11 +11793,27 @@ textarea {
   letter-spacing: 0.2em;
   text-transform: uppercase; }
 
+/**/
 .modal-container {
   position: relative; }
 
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute; }
+
+.modal__title {
+  background-color: #b61b17; }
+
+.modal__title h1, h2, h3, h4, h5, h6 {
+  font-size: 3em;
+  font-style: italic;
+  font-weight: bold;
+  color: #fff; }
+
+.modal__body {
+  font-size: 1.6em; }
+
+.modal__body p {
+  color: black; }
 
 .ReactTable {
   position: relative;

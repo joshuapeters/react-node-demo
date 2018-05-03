@@ -118,14 +118,16 @@ class Students extends React.Component {
                     container={this}
                     aria-labelledby="contained-modal-title"
                 >
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton className="modal__title">
                         <Modal.Title id="contained-modal-title">
                             Deleting Students!
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="modal__body">
                         <p>Warning!</p>
-                        <p>You are about to delete any students you have selected. Are you sure you want to continue?</p>
+                        <p>You are about to delete any students you have selected.{'\n'}
+                            Are you sure you want to continue?
+                        </p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button bsStyle="danger" onClick={this.handleDelete}>Delete</Button>
