@@ -21,7 +21,7 @@ describe('GET /students', function() {
     it('should render ok', function(done) {
         request(server)
             .get('/students')
-            .expect(200, done);
+            .expect(302, done);
     });
 });
 
@@ -29,8 +29,9 @@ describe('GET /create', function() {
     it('should render ok', function(done) {
         request(server)
             .get('/create')
-            .expect(200, done);
+            .expect(302, done);
     });
 });
+
 
 

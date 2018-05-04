@@ -1,7 +1,6 @@
-
-import {FilterFactory} from "../../api/providers/FilterFactory";
 var request = require('supertest');
 var assert = require("assert");
+import {FilterFactory} from "../../api/providers/FilterFactory";
 
 
 describe('FilterFactory Unit Tests', function() {
