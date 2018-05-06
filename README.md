@@ -38,8 +38,8 @@ This boilerplate is built using the following libraries:
     * ```select * from students where age >= 10 AND where age <= 20```
 * Allow sorting by column on the student list
     * To sort, specify query params in url either by a single property's mongoose sort query:
-        * Asc: ```orderBy=age```
-        * Dec: ```orderBy=-age```
+        * Asc: ```sortBy=age```
+        * Dec: ```sortBy=-age```
     * You can also specify subproperties to the sortBy paramater to do more complex sorting:
         * Sort by age ascending and grade descending: ```sortBy[age]=1&sortBy[grade]=-1```
 
