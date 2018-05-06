@@ -19,7 +19,12 @@ $modal__body--font-size: 1.6em;
   background-color: $modal__title--color;
 }
 
-.modal__title h1, h2, h3, h4, h5, h6{
+.modal__title h1,
+.modal__title h2,
+.modal__title h3,
+.modal__title h4,
+.modal__title h5,
+.modal__title h6{
   font-size: $modal__title--font-size;
   font-style: $modal__title--font-style;
   font-weight: $modal__title--font-weight;

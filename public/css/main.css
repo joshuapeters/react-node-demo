@@ -11803,7 +11803,12 @@ textarea {
 .modal__title {
   background-color: #b61b17; }
 
-.modal__title h1, h2, h3, h4, h5, h6 {
+.modal__title h1,
+.modal__title h2,
+.modal__title h3,
+.modal__title h4,
+.modal__title h5,
+.modal__title h6 {
   font-size: 3em;
   font-style: italic;
   font-weight: bold;
