@@ -32,6 +32,7 @@ exports.getAllStudents = async function(req, res){
 };
 
 function getFilters(body) {
+    // defined properties we want to include in our filters
     let filterableProperties = [
         "first_name",
         "last_name",
@@ -60,8 +61,9 @@ exports.getStudentById = function(req, res){
     try{
         studentProvider.getStudent(req.params.id).then(function (students){
             let success = true;
-            if (students === null)
+            if (!students || students === null)
                 success = false;
+
             res.json({success, students});
         }).catch((ex) =>{
             res.send(ex);

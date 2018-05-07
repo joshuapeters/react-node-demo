@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 export class StudentProvider{
@@ -10,11 +10,9 @@ export class StudentProvider{
             this._model = model;
     }
 
-    getAllStudents(){
-        return this._model.find({});
-    }
-
     getAllStudentsByPage(limit, page, filter, orderBy){
+        // filtering and orderBy queries are objects that conform to Mongoose's querying pattern
+        // docs: http://mongoosejs.com/docs/queries.html
         return this._model
             .find(filter)
             .sort(orderBy)
@@ -31,7 +29,7 @@ export class StudentProvider{
     }
 
     getStudent(id){
-        if (typeof id === 'undefined')
+        if (typeof id === 'undefined' )
             throw new Error("ArgumentError: id cannot be undefined!");
         return this._model.findOne({_id: id});
     }

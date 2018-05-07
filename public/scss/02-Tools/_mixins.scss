@@ -1,5 +1,6 @@
 @import "./functions";
 
+// default font size is 1.6rem
 @mixin font-size-rem($size: 1.6) {
   font-size: $size + rem;
 }
@@ -9,6 +10,7 @@
     color : map-get($color-map, $color);
   }
   @else{
+    // default color is black
     color: #0d0d0d;
   }
 }

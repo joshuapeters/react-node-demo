@@ -1,4 +1,3 @@
-var qs = require('qs');
 
 export class FilterFactory{
 
@@ -27,10 +26,4 @@ export class FilterFactory{
             return {};
         }
     }
-
-
-}
-
-function buildFilter(sourceFilter){
-
 }
