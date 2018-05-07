@@ -1,11 +1,5 @@
-$modal__title--color: #b61b17;
-$modal__title--font-size: 3em;
-$modal__title--font-style: italic;
-$modal__title--font-weight: bold;
-$modal__title--text-color: #fff;
-
-$modal__body--text-color: rgb(0,0,0);
-$modal__body--font-size: 1.6em;
+@import "../01-Settings/colors";
+@import "../01-Settings/fonts";
 
 /**/
 .modal-container {

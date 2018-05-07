@@ -59,16 +59,16 @@ footer {
 
 /*** HEADER REQUIREMENT ***/
 header{
-  @include font-size-rem(2);
+  @include font-size-rem(3);
 }
 
 h1, h2, h3, h4, h5, h6{
-  @include font-size-rem(2);
+  @include font-size-rem(3);
 }
 
 /*** FONT COLOR REQUIREMENT ***/
 p{
-  @include set-font-color("red");
+  @include set-font-color("blue");
 }
 
 .login-container {
